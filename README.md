@@ -1,9 +1,3 @@
-# Multilingual Speech Moderation
-
-An end-to-end multilingual hate speech detection pipeline across four Indian languages using MuRIL.
-
----
-
 ## Overview
 
 This project fine-tunes **Google's MuRIL Transformer** for multilingual hate speech classification across Indian languages.
