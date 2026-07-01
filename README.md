@@ -141,6 +141,56 @@ The evaluation script prints:
 
 ---
 
+---
+
+# Predictions & Raw Logits
+
+The evaluation script uses Hugging Face's `Trainer.predict()` API, which returns:
+
+- Predicted labels
+- Raw logits
+- Evaluation metrics
+
+To inspect the model's raw outputs, edit `root/evaluate_model.py` and add:
+
+```python
+print("\nRaw Logits:\n")
+print(predictions.predictions)
+```
+
+To convert the logits into probabilities:
+
+```python
+import torch
+
+logits = torch.tensor(predictions.predictions)
+probabilities = torch.softmax(logits, dim=1)
+
+print("\nProbabilities:\n")
+print(probabilities)
+```
+
+Each row corresponds to a single sample:
+
+```
+[logit_nonhate, logit_hate]
+```
+
+The predicted class is obtained using:
+
+```python
+predictions = np.argmax(predictions.predictions, axis=1)
+```
+
+To convert the predictions back to labels:
+
+```python
+from config import ID2LABEL
+
+predicted_labels = [ID2LABEL[p] for p in predictions]
+print(predicted_labels)
+```
+
 # Notes
 
 - The `models/` directory is intentionally empty when cloned.
